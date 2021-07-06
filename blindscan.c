@@ -428,7 +428,7 @@ static void blindscan(int fe_id)
 
         j += sprintf(buf + j, "\n");
 
-        fprintf(stdout, buf);
+        fprintf(stdout, "%s", buf);
         fflush(stdout);
     }
 }
