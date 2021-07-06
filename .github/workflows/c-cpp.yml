@@ -1,0 +1,26 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        gcc: [aarch64-linux-gnu, arm-linux-gnueabihf, mipsel-linux-gnu]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: install gcc ${{ matrix.gcc }}
+      run: |
+        sudo apt -q update
+        sudo apt install gcc-${{ matrix.gcc }}
+    - name: make
+      env:
+        CC: "${{ matrix.gcc }}-gcc"
+      run: make
